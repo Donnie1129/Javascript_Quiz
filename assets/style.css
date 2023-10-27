@@ -101,3 +101,7 @@
     cursor: pointer;
     display: none;
   }
+
+.high-scores-list {
+  color: black;
+}

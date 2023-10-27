@@ -26,7 +26,7 @@ var questions = [
         { text: "()", correct: true }
       ]
     },
-    // to whomever grades this, this is an inside joke with our instructor
+    // to whoever grades this, this is an inside joke with our instructor
     {
       question: "According to Derek Drummond(our instructor) which of the following is typed correctly?",
       answers: [
@@ -115,6 +115,8 @@ var questions = [
     startButton.style.display = "block";
     startButton.textContent = "Play Again?";
     nextButton.style.display = "none";
+    clearButton.style.display = "block";
+    highScoresButton.style.display = "block";
   }
   
   function startQuiz() {
@@ -123,6 +125,9 @@ var questions = [
   
     document.getElementById('timer').textContent = timeLeft;
     document.getElementById('answer-response').textContent = '';
+    clearButton.style.display = "none";
+    highScoresButton.style.display = "none";
+    highScoresList.style.display = 'none';
   
     displayQuestion();
   
@@ -163,20 +168,21 @@ var isHighScoresVisible = false;
 
 highScoresButton.addEventListener('click', function() {
   var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-  
-  if (!isHighScoresVisible) {
+
+  if (highScores.length > 0) {
     highScoresList.innerHTML = '';
-    
+
     highScores.forEach(function(score) {
       var listItem = document.createElement('li');
       listItem.textContent = score.initials + ': ' + score.score;
       highScoresList.appendChild(listItem);
     });
-    
-    isHighScoresVisible = true;
-  } else {
-    highScoresList.innerHTML = '';
-    isHighScoresVisible = false;
+
+    if (highScoresList.style.display === 'none') {
+      highScoresList.style.display = 'block';
+    } else {
+      highScoresList.style.display = 'none';
+    }
   }
 });
 
